@@ -54,7 +54,7 @@ public class ResolveExternalDependencyMojo extends
     AbstractExternalDependencyMojo
 {
     /**
-     * @parameter expression="${localRepository}"
+     * @parameter property="localRepository"
      * @required
      * @readonly
      */
@@ -70,7 +70,7 @@ public class ResolveExternalDependencyMojo extends
     /**
      * List of Remote Repositories used by the resolver
      * 
-     * @parameter expression="${project.remoteArtifactRepositories}"
+     * @parameter property="project.remoteArtifactRepositories"
      * @readonly
      * @required
      */

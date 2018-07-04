@@ -123,7 +123,7 @@ public class ArtifactItem
      * Location of an existing POM file to be installed alongside the main
      * artifact, given by the {@link #file} parameter.
      * 
-     * @parameter expression="${pomFile}"
+     * @parameter property="pomFile"
      */
     private File pomFile;
 
@@ -132,14 +132,14 @@ public class ArtifactItem
      * parameter {@link #pomFile}. Defaults to <code>true</code> if there is no
      * existing POM in the local repository yet.
      * 
-     * @parameter expression="${generatePom}" default-value="true"
+     * @parameter property="generatePom" default-value="true"
      */
     private Boolean generatePom = true;
 
     /**
      * Flag whether to create checksums (MD5, SHA-1) or not.
      * 
-     * @parameter expression="${createChecksum}"
+     * @parameter property="createChecksum"
      */
     private String createChecksum;
 
