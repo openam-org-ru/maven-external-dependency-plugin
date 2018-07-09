@@ -200,7 +200,7 @@ public class ResolveExternalDependencyMojo extends
                                 Proxy settingsProxy = settings.getActiveProxy();
                                 proxyInfo = new ProxyInfo();
                                 proxyInfo.setHost(settingsProxy.getHost());
-                                proxyInfo.setType(settingsProxy.getProtocol());
+                                proxyInfo.setType(downloadUrl.getProtocol());
                                 proxyInfo.setPort(settingsProxy.getPort());
                                 proxyInfo.setNonProxyHosts(settingsProxy.getNonProxyHosts());
                                 proxyInfo.setUserName(settingsProxy.getUsername());
