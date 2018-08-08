@@ -17,6 +17,7 @@ package com.savage7.maven.plugin.dependency;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.maven.artifact.Artifact;
@@ -195,20 +196,31 @@ public class ResolveExternalDependencyMojo extends
                             wagon.setTimeout(artifactItem.getTimeout());
                             Settings settings = mavenSettingsBuilder.buildSettings();
                             ProxyInfo proxyInfo = null;
-                            if (settings != null&& settings.getActiveProxy() != null)
+                            if (settings != null && settings.getProxies() != null)
                             {
-                                Proxy settingsProxy = settings.getActiveProxy();
-                                proxyInfo = new ProxyInfo();
-                                proxyInfo.setHost(settingsProxy.getHost());
-                                proxyInfo.setType(downloadUrl.getProtocol());
-                                proxyInfo.setPort(settingsProxy.getPort());
-                                proxyInfo.setNonProxyHosts(settingsProxy.getNonProxyHosts());
-                                proxyInfo.setUserName(settingsProxy.getUsername());
-                                proxyInfo.setPassword(settingsProxy.getPassword());
+                                List<Proxy> proxies = settings.getProxies();
+                                for (Proxy settingsProxy : proxies) {
+                                    // FIXME We check only first suitable proxy, but there may be more
+                                    if (settingsProxy.isActive() && settingsProxy.getProtocol().equals(downloadUrl.getProtocol()))
+                                    {
+                                        proxyInfo = new ProxyInfo();
+                                        proxyInfo.setHost(settingsProxy.getHost());
+                                        proxyInfo.setType(settingsProxy.getProtocol());
+                                        proxyInfo.setPort(settingsProxy.getPort());
+                                        proxyInfo.setNonProxyHosts(settingsProxy.getNonProxyHosts());
+                                        proxyInfo.setUserName(settingsProxy.getUsername());
+                                        proxyInfo.setPassword(settingsProxy.getPassword());
+                                        getLog().debug("Found suitable proxy " +
+                                                proxyInfo.getType() + "://" +
+                                                proxyInfo.getHost() + ":" +
+                                                proxyInfo.getPort());
+                                        break;
+                                    }
+                                }
                             }
 
                             if (proxyInfo != null)
-                                wagon.connect(repository, wagonManager.getAuthenticationInfo(repository.getId()),proxyInfo);
+                                wagon.connect(repository, wagonManager.getAuthenticationInfo(repository.getId()), proxyInfo);
                             else
                                 wagon.connect(repository, wagonManager.getAuthenticationInfo(repository.getId()));
                             
