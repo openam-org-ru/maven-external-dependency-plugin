@@ -39,7 +39,7 @@ public class InstallExternalDependencyMojo extends
     AbstractExternalDependencyMojo
 {
     /**
-     * @parameter expression="${localRepository}"
+     * @parameter property="localRepository"
      * @required
      * @readonly
      */
@@ -67,7 +67,7 @@ public class InstallExternalDependencyMojo extends
     /**
      * Flag whether to create checksums (MD5, SHA-1) or not.
      * 
-     * @parameter expression="${createChecksum}" default-value="true"
+     * @parameter property="createChecksum" default-value="true"
      */
     protected boolean createChecksum = true;
 

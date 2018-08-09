@@ -43,7 +43,7 @@ public class DeployExternalDependencyMojo extends
         AbstractExternalDependencyMojo
 {
     /**
-     * @parameter expression="${localRepository}"
+     * @parameter property="localRepository"
      * @required
      * @readonly
      */
