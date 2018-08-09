@@ -210,7 +210,7 @@ public class ResolveExternalDependencyMojo extends
                                         proxyInfo.setNonProxyHosts(settingsProxy.getNonProxyHosts());
                                         proxyInfo.setUserName(settingsProxy.getUsername());
                                         proxyInfo.setPassword(settingsProxy.getPassword());
-                                        getLog().debug("Found suitable proxy " +
+                                        getLog().info("Found suitable proxy " +
                                                 proxyInfo.getType() + "://" +
                                                 proxyInfo.getHost() + ":" +
                                                 proxyInfo.getPort());
