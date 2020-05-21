@@ -183,7 +183,10 @@ public class ResolveExternalDependencyMojo extends
                             //FileUtils.copyURLToFile(downloadUrl, tempDownloadFile);
 
                             //vharseko@openam.org.ru
-                            String endPointUrl = downloadUrl.getProtocol() + "://"+ downloadUrl.getAuthority();
+                            String endPointUrl = downloadUrl.getAuthority() == null 
+                                    || downloadUrl.getAuthority().isEmpty() 
+                                    ? downloadUrl.getProtocol()
+                                    : downloadUrl.getProtocol() + "://"+ downloadUrl.getAuthority();
                             Repository repository = new Repository("additonal-configs", endPointUrl);
                             Wagon wagon = wagonManager.getWagon(downloadUrl.getProtocol());
                             if (getLog().isDebugEnabled())
